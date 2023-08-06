@@ -7,14 +7,27 @@ import Button from './core-ui/Button';
 import Board from './components/Board';
 
 class Main extends React.Component {
+  state = {
+    history: [
+      {
+        squares: Array(9).fill(null),
+      },
+    ],
+    stepNumber: 0,
+    xIsNext: true,
+  };
+
   render() {
+    let { xIsNext } = this.state;
+    let characterInfo = xIsNext ? 'X' : 'O';
+
     return (
       <View style={styles.container}>
         <StatusBar style='auto' />
         <View style={styles.header}>
           <Text style={styles.title}>TIC TAC TOE</Text>
           <Text style={styles.subtitle}>Sekarang Giliran Jalan</Text>
-          <Text style={styles.subtitle}>X</Text>
+          <Text style={styles.subtitle}>{characterInfo}</Text>
         </View>
         <Board />
         <View style={styles.footer}>
