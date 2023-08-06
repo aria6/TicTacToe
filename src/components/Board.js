@@ -3,28 +3,25 @@ import { View, StyleSheet } from 'react-native';
 
 import Square from './Square';
 
-let functionHandleClick = () => {
-  // Fungsi kosong sementara
-};
-
 class Board extends React.Component {
   render() {
+    let { squares, onSquarePress } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.row}>
-          <Square value={0} onPress={functionHandleClick} />
-          <Square value={1} onPress={functionHandleClick} />
-          <Square value={2} onPress={functionHandleClick} />
+          <Square value={squares[0]} onPress={() => onSquarePress(0)} />
+          <Square value={squares[1]} onPress={() => onSquarePress(1)} />
+          <Square value={squares[2]} onPress={() => onSquarePress(2)} />
         </View>
         <View style={styles.row}>
-          <Square value={4} onPress={functionHandleClick} />
-          <Square value={5} onPress={functionHandleClick} />
-          <Square value={6} onPress={functionHandleClick} />
+          <Square value={squares[3]} onPress={() => onSquarePress(3)} />
+          <Square value={squares[4]} onPress={() => onSquarePress(4)} />
+          <Square value={squares[5]} onPress={() => onSquarePress(5)} />
         </View>
         <View style={styles.row}>
-          <Square value={7} onPress={functionHandleClick} />
-          <Square value={8} onPress={functionHandleClick} />
-          <Square value={9} onPress={functionHandleClick} />
+          <Square value={squares[6]} onPress={() => onSquarePress(6)} />
+          <Square value={squares[7]} onPress={() => onSquarePress(7)} />
+          <Square value={squares[8]} onPress={() => onSquarePress(8)} />
         </View>
       </View>
     );

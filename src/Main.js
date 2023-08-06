@@ -17,9 +17,33 @@ class Main extends React.Component {
     xIsNext: true,
   };
 
+  onSquarePress = (indexSquare) => {
+    let { history, stepNumber, xIsNext } = this.state;
+
+    let listHistory = history.slice(0, stepNumber + 1);
+    let currentSquare = listHistory[listHistory.length - 1];
+
+    let squares = [...currentSquare.squares];
+    squares[indexSquare] = xIsNext ? 'X' : 'O';
+
+    let newHistory = listHistory.concat([
+      {
+        squares: squares,
+      },
+    ]);
+
+    this.setState({
+      history: newHistory,
+      stepNumber: listHistory.length,
+      xIsNext: !xIsNext,
+    });
+  };
+
   render() {
-    let { xIsNext } = this.state;
+    let { xIsNext, history, stepNumber } = this.state;
     let characterInfo = xIsNext ? 'X' : 'O';
+
+    let currentStep = history[stepNumber];
 
     return (
       <View style={styles.container}>
@@ -29,7 +53,10 @@ class Main extends React.Component {
           <Text style={styles.subtitle}>Sekarang Giliran Jalan</Text>
           <Text style={styles.subtitle}>{characterInfo}</Text>
         </View>
-        <Board />
+        <Board
+          squares={currentStep.squares}
+          onSquarePress={this.onSquarePress}
+        />
         <View style={styles.footer}>
           <Button text='Prev' onPress={() => {}} />
           <Button text='Reset' onPress={() => {}} />
