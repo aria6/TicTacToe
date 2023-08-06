@@ -39,6 +39,33 @@ class Main extends React.Component {
     });
   };
 
+  jumpTo = (step) => {
+    let { history } = this.state;
+
+    if (step < 0) {
+      return;
+    }
+
+    if (history.length > step) {
+      this.setState({
+        stepNumber: step,
+        xIsNext: step % 2 === 0,
+      });
+    }
+  };
+
+  onResetPress = () => {
+    this.setState({
+      history: [
+        {
+          squares: Array(9).fill(null),
+        },
+      ],
+      stepNumber: 0,
+      xIsNext: true,
+    });
+  };
+
   render() {
     let { xIsNext, history, stepNumber } = this.state;
     let characterInfo = xIsNext ? 'X' : 'O';
@@ -58,9 +85,9 @@ class Main extends React.Component {
           onSquarePress={this.onSquarePress}
         />
         <View style={styles.footer}>
-          <Button text='Prev' onPress={() => {}} />
-          <Button text='Reset' onPress={() => {}} />
-          <Button text='Next' onPress={() => {}} />
+          <Button text='Prev' onPress={() => this.jumpTo(stepNumber - 1)} />
+          <Button text='Reset' onPress={this.onResetPress} />
+          <Button text='Next' onPress={() => this.jumpTo(stepNumber + 1)} />
         </View>
       </View>
     );
