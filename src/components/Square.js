@@ -1,11 +1,21 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
+const BACKGROUND_ACTIVE = '#CECECE';
+
 class Square extends React.Component {
   render() {
-    let { value, onPress } = this.props;
+    let { value, onPress, isWinnerLine } = this.props;
+
+    let activeStyle = isWinnerLine
+      ? { backgroundColor: BACKGROUND_ACTIVE }
+      : null;
+
     return (
-      <TouchableOpacity onPress={onPress} style={styles.container}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.container, activeStyle]}
+      >
         <Text style={styles.text}>{value}</Text>
       </TouchableOpacity>
     );

@@ -6,6 +6,8 @@ import Constants from 'expo-constants';
 import Button from './core-ui/Button';
 import Board from './components/Board';
 
+import calculateWinner from './helpers/calculateWinner';
+
 class Main extends React.Component {
   state = {
     history: [
@@ -68,21 +70,25 @@ class Main extends React.Component {
 
   render() {
     let { xIsNext, history, stepNumber } = this.state;
-    let characterInfo = xIsNext ? 'X' : 'O';
 
     let currentStep = history[stepNumber];
+    let winner = calculateWinner(currentStep.squares);
+
+    let info = winner ? 'Pemenangnya Adalah' : 'Sekarang Giliran Jalan';
+    let characterInfo = winner ? winner.value : xIsNext ? 'X' : 'O';
 
     return (
       <View style={styles.container}>
         <StatusBar style='auto' />
         <View style={styles.header}>
           <Text style={styles.title}>TIC TAC TOE</Text>
-          <Text style={styles.subtitle}>Sekarang Giliran Jalan</Text>
+          <Text style={styles.subtitle}>{info}</Text>
           <Text style={styles.subtitle}>{characterInfo}</Text>
         </View>
         <Board
           squares={currentStep.squares}
           onSquarePress={this.onSquarePress}
+          winner={winner}
         />
         <View style={styles.footer}>
           <Button text='Prev' onPress={() => this.jumpTo(stepNumber - 1)} />
