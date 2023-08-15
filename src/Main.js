@@ -73,9 +73,20 @@ class Main extends React.Component {
 
     let currentStep = history[stepNumber];
     let winner = calculateWinner(currentStep.squares);
+    let isDraw = stepNumber === 9 && !winner;
 
-    let info = winner ? 'Pemenangnya Adalah' : 'Sekarang Giliran Jalan';
-    let characterInfo = winner ? winner.value : xIsNext ? 'X' : 'O';
+    let info = isDraw
+      ? `Hasilnya Seri`
+      : winner
+      ? 'Pemenangnya Adalah'
+      : 'Sekarang Giliran Jalan';
+    let characterInfo = isDraw
+      ? ''
+      : winner
+      ? winner.value
+      : xIsNext
+      ? 'X'
+      : 'O';
 
     return (
       <View style={styles.container}>
@@ -89,10 +100,14 @@ class Main extends React.Component {
           squares={currentStep.squares}
           onSquarePress={this.onSquarePress}
           winner={winner}
+          isDraw={isDraw}
         />
         <View style={styles.footer}>
           <Button text='Prev' onPress={() => this.jumpTo(stepNumber - 1)} />
-          <Button text='Reset' onPress={this.onResetPress} />
+          <Button
+            text={winner || isDraw ? 'Main Lagi' : 'Reset'}
+            onPress={this.onResetPress}
+          />
           <Button text='Next' onPress={() => this.jumpTo(stepNumber + 1)} />
         </View>
       </View>

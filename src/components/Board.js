@@ -5,13 +5,14 @@ import Square from './Square';
 
 class Board extends React.Component {
   renderSquare = (index) => {
-    let { squares, onSquarePress, winner } = this.props;
+    let { squares, onSquarePress, winner, isDraw } = this.props;
 
     return (
       <Square
         value={squares[index]}
         onPress={() => onSquarePress(index)}
         isWinnerLine={winner && winner.line.includes(index)}
+        isDraw={isDraw}
       />
     );
   };

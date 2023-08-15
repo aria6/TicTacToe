@@ -5,11 +5,10 @@ const BACKGROUND_ACTIVE = '#CECECE';
 
 class Square extends React.Component {
   render() {
-    let { value, onPress, isWinnerLine } = this.props;
+    let { value, onPress, isWinnerLine, isDraw } = this.props;
 
-    let activeStyle = isWinnerLine
-      ? { backgroundColor: BACKGROUND_ACTIVE }
-      : null;
+    let activeStyle =
+      isWinnerLine || isDraw ? { backgroundColor: BACKGROUND_ACTIVE } : null;
 
     return (
       <TouchableOpacity
