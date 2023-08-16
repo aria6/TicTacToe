@@ -19,13 +19,17 @@ class Main extends React.Component {
     xIsNext: true,
   };
 
-  onSquarePress = (indexSquare) => {
+  onSquarePress = (indexSquare, isWinner) => {
     let { history, stepNumber, xIsNext } = this.state;
 
     let listHistory = history.slice(0, stepNumber + 1);
     let currentSquare = listHistory[listHistory.length - 1];
 
     let squares = [...currentSquare.squares];
+    if (isWinner || squares[indexSquare]) {
+      return;
+    }
+
     squares[indexSquare] = xIsNext ? 'X' : 'O';
 
     let newHistory = listHistory.concat([

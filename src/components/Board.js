@@ -10,7 +10,7 @@ class Board extends React.Component {
     return (
       <Square
         value={squares[index]}
-        onPress={() => onSquarePress(index)}
+        onPress={() => onSquarePress(index, !!winner)}
         isWinnerLine={winner && winner.line.includes(index)}
         isDraw={isDraw}
       />
